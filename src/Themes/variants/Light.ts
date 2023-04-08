@@ -36,5 +36,5 @@ export default createPalette({
     dark: '#a10a3d',
   },
 
-  divider: '#3a3a3a',
+  divider: '#e5e5e5',
 });

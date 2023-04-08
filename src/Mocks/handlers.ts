@@ -1,9 +1,55 @@
 // src/mocks/handlers.js
+import { User } from '@/Entities/UserEntities';
 import { rest } from 'msw';
 
+const users: User[] = [
+  {
+    id: 1,
+    username: 'adnane_ar',
+    password: '123456789',
+  },
+  {
+    id: 2,
+    username: 'souad_elg',
+    password: '369258147',
+  },
+];
+
 export const handlers = [
-  rest.get(`/ping`, (_req, res, ctx) => {
-    const message = 'Welcome buddy!';
-    return res(ctx.delay(100), ctx.status(200), ctx.json(message));
+  rest.post(`${import.meta.env.VITE_APP_URL}/api/auth/signin`, async (req, res, ctx) => {
+    const body = await req.json();
+    const user = users.find((x) => x.username === body.username && x.password === body.password);
+    if (!user)
+      return await res(
+        ctx.delay(100),
+        ctx.status(404),
+        ctx.json({
+          message: `Username or password is incorrect.`,
+        }),
+      );
+
+    return await res(ctx.delay(100), ctx.status(200), ctx.json(user));
+  }),
+
+  rest.post(`${import.meta.env.VITE_APP_URL}/api/auth/signup`, async (req, res, ctx) => {
+    const body = await req.json();
+    if (users.findIndex((x) => x.username === body.username) !== -1)
+      return await res(
+        ctx.delay(100),
+        ctx.status(403),
+        ctx.json({
+          message: `Username already exists.`,
+        }),
+      );
+
+    const newId = users.reverse()[0].id + 1;
+    const newUser: User = {
+      id: newId,
+      username: body.username,
+      password: body.password,
+    };
+
+    users.push(newUser);
+    return await res(ctx.delay(100), ctx.status(200), ctx.json(newUser));
   }),
 ];

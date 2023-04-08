@@ -1,7 +1,7 @@
 import { Main } from '@/Layout';
 import { Error, Overview } from '@/Pages';
-import { Login } from '@/Pages/Auth/Login';
-import { Register } from '@/Pages/Auth/Register';
+import { Signin } from '@/Pages/Auth/Signin';
+import { Signup } from '@/Pages/Auth/Signup';
 import { RouteObject, useRoutes } from 'react-router-dom';
 
 const SecuredRoutes: RouteObject[] = [
@@ -16,15 +16,14 @@ const SecuredRoutes: RouteObject[] = [
 
       {
         path: 'auth',
-        element: <Login />,
         children: [
           {
-            path: 'login',
-            element: <Login />,
+            path: 'signin',
+            element: <Signin />,
           },
           {
-            path: 'register',
-            element: <Register />,
+            path: 'signup',
+            element: <Signup />,
           },
         ],
       },

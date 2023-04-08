@@ -19,7 +19,7 @@ export const useTheme = () => {
         palette: themes[targetThemeName],
 
         shape: {
-          borderRadius: 6,
+          borderRadius: 0,
         },
 
         zIndex: {
@@ -35,7 +35,7 @@ export const useTheme = () => {
 
         typography: {
           fontFamily: 'Roboto, sans-serif',
-          fontSize: 16,
+          fontSize: 14,
         },
 
         components: ThemeComponents,
