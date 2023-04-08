@@ -9,11 +9,13 @@ import { PaperContainer } from '../Containers';
 
 interface TableProps<T extends object[]> {
   data: T;
-  cells: Array<keyof T[number]>;
+  cells: Partial<{
+    [key in keyof T[number]]: string;
+  }>;
   renderValues?: Partial<{
-    [key in TableProps<T>['cells'][number]]: (
-      value: TableProps<T>['data'][number][key],
-    ) => React.ReactNode;
+    [key in keyof TableProps<T>['cells']]:
+      | ((value: TableProps<T>['data'][number][key]) => React.ReactNode)
+      | string;
   }>;
 }
 export const Table = <T extends object[]>({ data, cells, renderValues }: TableProps<T>) => {
@@ -23,28 +25,38 @@ export const Table = <T extends object[]>({ data, cells, renderValues }: TablePr
       const transformedValue = Object.entries(renderValues ?? {}).find(([k]) => k === key);
       if (!transformedValue || !transformedValue[1]) return String(defaultValue);
 
-      const transformableValue = transformedValue[1] as (value: unknown) => React.ReactNode;
-      return transformableValue(defaultValue);
+      const transformableValue = transformedValue[1] as
+        | ((value: unknown) => React.ReactNode)
+        | string;
+
+      return typeof transformableValue === 'function'
+        ? transformableValue(defaultValue)
+        : transformableValue;
     },
     [renderValues, data, cells],
   );
 
   return (
     <TableContainer component={PaperContainer} sx={{ p: 0 }}>
-      <DefaultTable>
+      <DefaultTable size='small'>
         <TableHead>
           <TableRow>
-            {cells.map((cell) => (
-              <TableCell key={String(cell)}>{String(cell)}</TableCell>
+            {Object.entries(cells).map(([key, replacement]) => (
+              <TableCell key={key} sx={{ borderBottom: '1px solid', borderBottomColor: 'divider' }}>
+                {String(replacement)}
+              </TableCell>
             ))}
           </TableRow>
         </TableHead>
         <TableBody>
           {data.map((x, idx) => (
             <TableRow key={idx}>
-              {cells.map((cell) => (
-                <TableCell key={`${idx}-${String(cell)}`}>
-                  {renderValueOrDefault(x, cell)}
+              {Object.entries(cells).map(([cellKey]) => (
+                <TableCell
+                  key={`${idx}-${String(cellKey)}`}
+                  sx={{ borderBottom: '1px solid', borderBottomColor: 'divider' }}
+                >
+                  {renderValueOrDefault(x, cellKey)}
                 </TableCell>
               ))}
             </TableRow>
