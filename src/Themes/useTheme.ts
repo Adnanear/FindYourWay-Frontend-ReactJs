@@ -33,6 +33,11 @@ export const useTheme = () => {
           tooltip: 1500,
         },
 
+        typography: {
+          fontFamily: 'Roboto, sans-serif',
+          fontSize: 16,
+        },
+
         components: ThemeComponents,
       }),
     [targetThemeName],
