@@ -51,13 +51,16 @@ export const ThemeComponents: Components<Omit<Theme, 'components'>> = {
     },
   },
 
+  MuiButtonBase: {
+    defaultProps: {
+      disableTouchRipple: true,
+      disableRipple: true,
+    },
+  },
+
   MuiButton: {
     defaultProps: {
       variant: 'contained',
-      disableTouchRipple: true,
-      disableElevation: true,
-      disableFocusRipple: true,
-      disableRipple: true,
     },
     styleOverrides: {
       root: {
@@ -76,6 +79,18 @@ export const ThemeComponents: Components<Omit<Theme, 'components'>> = {
     },
   },
 
+  MuiIconButton: {
+    defaultProps: {
+      size: 'small',
+    },
+
+    styleOverrides: {
+      root: {
+        borderRadius: 0,
+      },
+    },
+  },
+
   MuiAvatar: {
     defaultProps: {
       variant: 'rounded',
@@ -83,6 +98,27 @@ export const ThemeComponents: Components<Omit<Theme, 'components'>> = {
     styleOverrides: {
       colorDefault: {
         color: '#ffffff',
+      },
+    },
+  },
+
+  MuiChip: {
+    defaultProps: {
+      variant: 'outlined',
+      size: 'small',
+      color: 'default',
+    },
+
+    styleOverrides: {
+      root: {
+        borderWidth: '2px',
+        fontWeight: 500,
+        textTransform: 'capitalize',
+      },
+
+      colorSuccess: {
+        color: '#23b729',
+        borderColor: 'currentcolor',
       },
     },
   },

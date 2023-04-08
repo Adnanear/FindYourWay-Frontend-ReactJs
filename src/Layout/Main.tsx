@@ -17,7 +17,7 @@ export const Main: React.FC<MainProps> = ({ ...restProps }) => {
       }}
     >
       <MainHeader />
-      <Flex flex={1} gap='inherit' alignItems='flex-start'>
+      <Flex flex={1} gap='inherit'>
         <MainSidebar />
         <MainContainer />
       </Flex>

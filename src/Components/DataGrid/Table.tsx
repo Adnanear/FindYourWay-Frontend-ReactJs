@@ -78,7 +78,7 @@ export const Table = <T extends ObjectType>({
                   {renderValueOrDefault(x, cellKey)}
                 </TableCell>
               ))}
-              <TableCell>{renderRowActions(x)}</TableCell>
+              <TableCell align='right'>{renderRowActions(x)}</TableCell>
             </TableRow>
           ))}
         </TableBody>

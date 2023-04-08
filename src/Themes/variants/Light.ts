@@ -13,7 +13,7 @@ export default createPalette({
   },
 
   success: {
-    light: '#b2ffb5',
+    light: '#23b729',
     main: '#7bff80',
     dark: '#55ff5b',
   },
