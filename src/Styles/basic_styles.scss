@@ -1,0 +1,11 @@
+:root {
+  --fontSize: 16px;
+  --fontFamily: Roboto, sans-serif;
+}
+
+html,
+body {
+  font-size: var(--fontSize, 16px);
+  font-family: var(--fontFamily, 'Roboto, sans-serif');
+  cursor: default;
+}

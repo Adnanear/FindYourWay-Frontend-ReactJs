@@ -1,0 +1,10 @@
+{
+  "app": {
+    "title": "FindYourWay",
+    "version": "1.0.0",
+    "author": {
+      "credits": "Adnane Aref",
+      "github": "https://www.github.com/adnane_ar"
+    }
+  }
+}
