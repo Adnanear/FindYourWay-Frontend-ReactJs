@@ -1,9 +1,10 @@
 import axios from 'axios';
 
 const request = axios.create({
-  baseURL: import.meta.env.VITE_APP_URL,
+  baseURL: import.meta.env.VITE_API_URL,
   headers: {
-    Authorization: `Bearer <token-id>`,
+    // Authorization: `Bearer <token-id>`,
+    'Content-Type': 'application/json',
   },
 });
 

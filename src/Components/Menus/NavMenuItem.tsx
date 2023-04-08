@@ -12,6 +12,7 @@ const MenuListItem = styled(IconButton)(({ theme }) => ({
   textAlign: 'start',
   gap: '.75em',
   alignItems: 'center',
+  padding: '.5em',
 
   '&.active': {
     borderLeftColor: theme.palette.primary.main,

@@ -5,7 +5,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useCallback } from 'react';
-import { PaperContainer } from '../Containers';
 
 type ObjectType = object[] | readonly object[];
 
@@ -52,7 +51,7 @@ export const Table = <T extends ObjectType>({
   );
 
   return (
-    <TableContainer component={PaperContainer} sx={{ p: 0 }}>
+    <TableContainer sx={{ p: 0 }}>
       <DefaultTable
         size='small'
         sx={{

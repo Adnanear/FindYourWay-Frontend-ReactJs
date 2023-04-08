@@ -61,6 +61,7 @@ export const ThemeComponents: Components<Omit<Theme, 'components'>> = {
   MuiButton: {
     defaultProps: {
       variant: 'contained',
+      size: 'small',
     },
     styleOverrides: {
       root: {
@@ -68,13 +69,13 @@ export const ThemeComponents: Components<Omit<Theme, 'components'>> = {
         textTransform: 'none',
 
         '.MuiSvgIcon-root': {
-          fontSize: '1.1em !important',
+          fontSize: '1.4em !important',
         },
       },
 
       contained: {
         color: '#ffffff',
-        boxShadow: 'none',
+        boxShadow: 'none !important',
       },
     },
   },

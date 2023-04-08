@@ -1,2 +1,2 @@
-export * from './Dashboard/Overview';
+export * from './Dashboard/Clients/Clients';
 export * from './Error';

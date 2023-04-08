@@ -1,5 +1,5 @@
 import { Main } from '@/Layout';
-import { Error, Overview } from '@/Pages';
+import { Clients, Error } from '@/Pages';
 import { Signin } from '@/Pages/Auth/Signin';
 import { Signup } from '@/Pages/Auth/Signup';
 import { RouteObject, useRoutes } from 'react-router-dom';
@@ -10,8 +10,12 @@ const SecuredRoutes: RouteObject[] = [
     element: <Main />,
     children: [
       {
-        path: '',
-        element: <Overview />,
+        index: true,
+        element: <Clients />,
+      },
+      {
+        path: 'clients',
+        element: <Clients />,
       },
 
       // Scoped errors
