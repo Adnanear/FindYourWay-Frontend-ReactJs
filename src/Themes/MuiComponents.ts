@@ -75,4 +75,15 @@ export const ThemeComponents: Components<Omit<Theme, 'components'>> = {
       },
     },
   },
+
+  MuiAvatar: {
+    defaultProps: {
+      variant: 'rounded',
+    },
+    styleOverrides: {
+      colorDefault: {
+        color: '#ffffff',
+      },
+    },
+  },
 };

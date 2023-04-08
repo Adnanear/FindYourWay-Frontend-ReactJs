@@ -2,7 +2,7 @@ import createPalette from '@mui/material/styles/createPalette';
 
 export default createPalette({
   background: {
-    default: '#efefef',
+    default: '#eff5ff',
     paper: '#ffffff',
   },
 

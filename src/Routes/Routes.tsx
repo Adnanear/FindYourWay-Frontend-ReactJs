@@ -14,26 +14,32 @@ const SecuredRoutes: RouteObject[] = [
         element: <Overview />,
       },
 
-      {
-        path: 'auth',
-        children: [
-          {
-            path: 'signin',
-            element: <Signin />,
-          },
-          {
-            path: 'signup',
-            element: <Signup />,
-          },
-        ],
-      },
-
-      // Errors
+      // Scoped errors
       {
         path: '*',
         element: <Error error={404} />,
       },
     ],
+  },
+
+  {
+    path: '/auth',
+    children: [
+      {
+        path: 'signin',
+        element: <Signin />,
+      },
+      {
+        path: 'signup',
+        element: <Signup />,
+      },
+    ],
+  },
+
+  // Errors
+  {
+    path: '*',
+    element: <Error error={404} />,
   },
 ];
 
