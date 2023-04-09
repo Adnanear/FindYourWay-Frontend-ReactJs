@@ -2,6 +2,7 @@ import { Flex, PaperContainer } from '@/Components/Containers';
 import { Link } from '@/Components/Controllers';
 import { LoadingButton } from '@/Components/Controllers/LoadingButton';
 import { User } from '@/Entities/UserEntities';
+import { useUserStore } from '@/Stores/useUserStore';
 import { HttpResponseError } from '@/Utils/Types';
 import { createYupResolver } from '@/Utils/YupResolver';
 import {
@@ -30,6 +31,8 @@ const resolver = createYupResolver((yup) =>
 export const Signin: React.FC = () => {
   const navigate = useNavigate();
 
+  const { setToken } = useUserStore();
+
   const [submitError, setSubmitError] = useState<string>();
 
   const { control, handleSubmit } = useForm<User>({
@@ -42,6 +45,7 @@ export const Signin: React.FC = () => {
   const onSubmit = useCallback((data: User) => {
     signin(data, {
       onSuccess: () => {
+        setToken(data.username);
         navigate(`/`);
       },
 
