@@ -26,7 +26,7 @@ interface UserRegisterForm extends User {
 
 const resolver = createYupResolver((yup) =>
   yup.object({
-    username: yup.string().required(),
+    email: yup.string().email().required(),
     password: yup
       .string()
       .required()
@@ -50,7 +50,7 @@ export const Signup: React.FC = () => {
 
   const { mutate: signup } = useSignup();
 
-  const onSubmit = useCallback((data: User) => {
+  const onSubmit = useCallback((data: UserRegisterForm) => {
     signup(data, {
       onSuccess: () => {
         navigate(`/`);
@@ -58,7 +58,7 @@ export const Signup: React.FC = () => {
 
       onError: (err) => {
         const error = err as HttpResponseError;
-        setSubmitError(error.response?.data?.message);
+        setSubmitError(String(error.response?.data));
       },
     });
   }, []);
@@ -85,7 +85,7 @@ export const Signup: React.FC = () => {
           {!!submitError && <Typography sx={{ color: 'error.main' }}>{submitError}</Typography>}
           <Controller
             control={control}
-            name='username'
+            name='email'
             render={({ field, fieldState: { error } }) => (
               <FormControl sx={{ flexBasis: '100%' }}>
                 <FormLabel htmlFor={field.name}>Username</FormLabel>

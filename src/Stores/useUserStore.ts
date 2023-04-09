@@ -1,7 +1,6 @@
-import { STORAGE_PREFIX } from '@/Utils/Constants';
 import { create } from 'zustand';
 
-const targetKey = `${STORAGE_PREFIX}_token`;
+const targetKey = `${import.meta.env.VITE_LOCAL_STORAGE_PREFIX}_token`;
 const storedToken = localStorage.getItem(targetKey);
 
 interface StoreInterface {

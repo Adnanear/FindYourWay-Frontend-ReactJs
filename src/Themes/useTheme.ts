@@ -3,8 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { ThemeComponents } from './MuiComponents';
 import themes, { ThemeVariant } from './variants';
 
-const LOCAL_STORAGE_ACCESS_NAME =
-  String(import.meta.env.VITE_LOCAL_STORAGE_PREFIX ?? 'officialLkaLike-_') + `_theme`;
+const LOCAL_STORAGE_ACCESS_NAME = String(import.meta.env.VITE_LOCAL_STORAGE_PREFIX) + `_theme`;
 
 const STORED_THEME_NAME = (localStorage.getItem(LOCAL_STORAGE_ACCESS_NAME) ??
   import.meta.env.VITE_APP_DEFAULT_THEME ??

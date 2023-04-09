@@ -5,12 +5,12 @@ import { rest } from 'msw';
 const users: User[] = [
   {
     id: 1,
-    username: 'adnane_ar',
+    email: 'adnane_ar',
     password: '123456789',
   },
   {
     id: 2,
-    username: 'souad_elg',
+    email: 'souad_elg',
     password: '369258147',
   },
 ];
@@ -18,7 +18,7 @@ const users: User[] = [
 export const handlers = [
   rest.post(`${import.meta.env.VITE_APP_URL}/api/auth/signin`, async (req, res, ctx) => {
     const body = await req.json();
-    const user = users.find((x) => x.username === body.username && x.password === body.password);
+    const user = users.find((x) => x.email === body.username && x.password === body.password);
     if (!user)
       return await res(
         ctx.delay(100),
@@ -33,7 +33,7 @@ export const handlers = [
 
   rest.post(`${import.meta.env.VITE_APP_URL}/api/auth/signup`, async (req, res, ctx) => {
     const body = await req.json();
-    if (users.findIndex((x) => x.username === body.username) !== -1)
+    if (users.findIndex((x) => x.email === body.username) !== -1)
       return await res(
         ctx.delay(100),
         ctx.status(403),
@@ -45,7 +45,7 @@ export const handlers = [
     const newId = users.reverse()[0].id + 1;
     const newUser: User = {
       id: newId,
-      username: body.username,
+      email: body.username,
       password: body.password,
     };
 

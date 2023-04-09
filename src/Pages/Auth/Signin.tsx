@@ -23,7 +23,7 @@ import { useSignin } from './api/queries';
 
 const resolver = createYupResolver((yup) =>
   yup.object({
-    username: yup.string().required(),
+    email: yup.string().email().required(),
     password: yup.string().required(),
   }),
 );
@@ -44,14 +44,14 @@ export const Signin: React.FC = () => {
 
   const onSubmit = useCallback((data: User) => {
     signin(data, {
-      onSuccess: () => {
-        setToken(data.username);
+      onSuccess: ({ accessToken }) => {
+        setToken(accessToken);
         navigate(`/`);
       },
 
       onError: (err) => {
         const error = err as HttpResponseError;
-        setSubmitError(error.response?.data?.message);
+        setSubmitError(String(error.response?.data));
       },
     });
   }, []);
@@ -78,7 +78,7 @@ export const Signin: React.FC = () => {
           {!!submitError && <Typography sx={{ color: 'error.main' }}>{submitError}</Typography>}
           <Controller
             control={control}
-            name='username'
+            name='email'
             render={({ field, fieldState: { error } }) => (
               <FormControl sx={{ flexBasis: '100%' }}>
                 <FormLabel htmlFor={field.name}>Username</FormLabel>
