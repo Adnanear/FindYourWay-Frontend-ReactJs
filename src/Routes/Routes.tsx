@@ -2,7 +2,8 @@ import { Main } from '@/Layout';
 import { Clients, Error } from '@/Pages';
 import { Signin } from '@/Pages/Auth/Signin';
 import { Signup } from '@/Pages/Auth/Signup';
-import { RouteObject, useRoutes } from 'react-router-dom';
+import { useUserStore } from '@/Stores/useUserStore';
+import { Navigate, RouteObject, useRoutes } from 'react-router-dom';
 
 const SecuredRoutes: RouteObject[] = [
   {
@@ -25,10 +26,21 @@ const SecuredRoutes: RouteObject[] = [
       },
     ],
   },
+];
+
+const PublicRoutes: RouteObject[] = [
+  {
+    path: '*',
+    element: <Navigate to='/auth/signin' />,
+  },
 
   {
     path: '/auth',
     children: [
+      {
+        index: true,
+        element: <Navigate to='signin' />,
+      },
       {
         path: 'signin',
         element: <Signin />,
@@ -39,14 +51,19 @@ const SecuredRoutes: RouteObject[] = [
       },
     ],
   },
-
-  // Errors
-  {
-    path: '*',
-    element: <Error error={404} />,
-  },
 ];
 
 export const AppRoutes: React.FC = () => {
-  return useRoutes(SecuredRoutes);
+  const { token } = useUserStore();
+
+  return useRoutes([
+    ...(token ? SecuredRoutes : PublicRoutes),
+    ...[
+      // Errors
+      {
+        path: '*',
+        element: <Error error={404} />,
+      },
+    ],
+  ]);
 };
