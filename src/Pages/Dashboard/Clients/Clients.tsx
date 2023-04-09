@@ -3,8 +3,13 @@ import { LoadingButton } from '@/Components/Controllers/LoadingButton';
 import { Table } from '@/Components/DataGrid/Table';
 import { CLIENT_STATUS, Client } from '@/Entities/ClientEntities';
 import { formatPhoneNumber } from '@/Utils/Helpers';
-import { Add as AddIcon, Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material';
-import { Box, Button, Chip, Stack, Typography } from '@mui/material';
+import {
+  Add as AddIcon,
+  Delete as DeleteIcon,
+  Edit as EditIcon,
+  Search as SearchIcon,
+} from '@mui/icons-material';
+import { Box, Button, Chip, Stack, TextField, Typography } from '@mui/material';
 import React, { useCallback, useMemo, useState } from 'react';
 import { ClientModal } from './ClientModal';
 import { useClients, useDeleteClient } from './api/queries';
@@ -13,8 +18,14 @@ export const Clients: React.FC = () => {
   const [selectedClient, setSelectedClient] = useState<Partial<Client>>();
   const [focusedModal, setFocusedModal] = useState<'client'>();
 
+  const [searchQuery, setSearchQuery] = useState<string>('');
+
   const { data: clientsData } = useClients();
-  const clients = useMemo(() => clientsData ?? [], [clientsData]);
+  const clients = useMemo(
+    () =>
+      (clientsData ?? []).filter((x) => x.name.toLowerCase().includes(searchQuery.toLowerCase())),
+    [clientsData, searchQuery],
+  );
 
   const { mutate: deleteClient, isLoading: isDeletingClient } = useDeleteClient();
 
@@ -58,10 +69,27 @@ export const Clients: React.FC = () => {
     [isDeletingClient, selectedClient],
   );
 
+  const handleSearchQueryChanged = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { value } = e.currentTarget;
+      setSearchQuery(value);
+    },
+    [],
+  );
+
   return (
     <Stack component={PaperContainer} gap={1}>
       <Typography variant='h1'>Clients</Typography>
       <Flex justifyContent='flex-end' gap='inherit'>
+        <TextField
+          type='text'
+          name='search'
+          id='search'
+          placeholder='Search...'
+          InputProps={{ startAdornment: <SearchIcon /> }}
+          sx={{ mr: 'auto' }}
+          onChange={handleSearchQueryChanged}
+        />
         <Button startIcon={<AddIcon />} onClick={handleRecordInsert}>
           Add client
         </Button>
