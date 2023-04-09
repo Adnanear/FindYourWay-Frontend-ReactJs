@@ -10,12 +10,17 @@ type ObjectType = object[] | readonly object[];
 
 interface TableProps<T extends ObjectType> {
   data: T;
-  cells: Partial<{
-    [key in keyof T[number]]: string;
-  }>;
+  cells:
+    | Partial<{
+        [key in keyof T[number]]: string;
+      }>
+    | Record<string, string>;
   renderValues?: Partial<{
     [key in keyof TableProps<T>['cells']]:
-      | ((value: TableProps<T>['data'][number][key]) => React.ReactNode)
+      | ((
+          value: TableProps<T>['data'][number][key],
+          row: TableProps<T>['data'][number],
+        ) => React.ReactNode)
       | string;
   }>;
   actions?: (row: TableProps<T>['data'][number]) => React.ReactNode;
@@ -33,11 +38,11 @@ export const Table = <T extends ObjectType>({
       if (!transformedValue || !transformedValue[1]) return String(defaultValue);
 
       const transformableValue = transformedValue[1] as
-        | ((value: unknown) => React.ReactNode)
+        | ((value: unknown, row: TableProps<T>['data'][number]) => React.ReactNode)
         | string;
 
       return typeof transformableValue === 'function'
-        ? transformableValue(defaultValue)
+        ? transformableValue(defaultValue, row)
         : transformableValue;
     },
     [renderValues, data, cells],

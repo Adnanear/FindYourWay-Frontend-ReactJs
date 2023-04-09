@@ -1,26 +1,48 @@
 import {
+  Box,
   BoxProps,
   Modal as DefaultModal,
   ModalProps as DefaultModalProps,
+  Stack,
+  Typography,
   styled,
 } from '@mui/material';
 import React, { useImperativeHandle, useState } from 'react';
-import { PaperContainer } from '../Containers';
+import { Flex, PaperContainer } from '../Containers';
 
 const StyledModal = styled(DefaultModal)(() => ({
   display: 'grid',
   placeItems: 'center',
 }));
 
-interface ModalProps extends Omit<DefaultModalProps, 'children'> {
+export interface ModalProps extends Omit<DefaultModalProps, 'children'> {
   paperProps?: BoxProps;
-  children: React.ReactNode;
+  title?: string;
+  children?: React.ReactNode;
 }
 
-const ModalComponent: React.FC<ModalProps> = ({ children, paperProps, ...props }) => {
+export const Modal: React.FC<ModalProps> = ({ title, paperProps, children, ...props }) => {
   return (
     <StyledModal {...props}>
-      <PaperContainer {...paperProps}>{children}</PaperContainer>
+      <PaperContainer {...paperProps}>
+        <Stack>
+          {!!title && (
+            <Flex
+              sx={{
+                py: 1,
+                alignItems: 'center',
+                borderBottom: '1px solid',
+                borderBottomColor: 'divider',
+              }}
+            >
+              <Typography variant='body2' sx={{ fontWeight: 500, fontSize: '1.2em' }}>
+                {title}
+              </Typography>
+            </Flex>
+          )}
+          <Box>{children}</Box>
+        </Stack>
+      </PaperContainer>
     </StyledModal>
   );
 };
@@ -29,7 +51,7 @@ export interface ModalImperativeHandles {
   open: () => void;
   close: () => void;
 }
-export const Modal = React.forwardRef<
+export const ImperativeModal = React.forwardRef<
   ModalImperativeHandles,
   Omit<ModalProps, 'open'> & { open?: boolean }
 >(({ open = false, ...props }, ref) => {
@@ -44,5 +66,5 @@ export const Modal = React.forwardRef<
     [],
   );
 
-  return <ModalComponent open={isOpen} {...props} />;
+  return <Modal open={isOpen} {...props} />;
 });

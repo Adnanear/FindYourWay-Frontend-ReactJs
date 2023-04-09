@@ -34,6 +34,7 @@ interface LoadingButtonProps {
   loading?: boolean;
   buttonType?: Types;
   color?: ButtonProps['color'];
+  variant?: ButtonProps['variant'];
 }
 
 export const LoadingButton = <T extends Types>({
