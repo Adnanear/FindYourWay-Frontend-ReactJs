@@ -33,8 +33,13 @@ const queryClient = new QueryClient({
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      {/* <ReactQueryDevtools position='bottom-right' /> */}
-      <ErrorBoundary fallback={<Error error={500} />}>
+      {/* <ReactQueryDevtools /> */}
+      <ErrorBoundary
+        fallback={<Error error={500} />}
+        onError={(err) => {
+          throw err;
+        }}
+      >
         <App />
       </ErrorBoundary>
     </QueryClientProvider>

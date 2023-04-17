@@ -5,12 +5,12 @@ import { rest } from 'msw';
 const users: User[] = [
   {
     id: 1,
-    email: 'adnane_ar',
+    email: 'adnane@gmail.com',
     password: '123456789',
   },
   {
     id: 2,
-    email: 'souad_elg',
+    email: 'wiam_chliah',
     password: '369258147',
   },
 ];

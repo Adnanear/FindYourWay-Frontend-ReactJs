@@ -22,7 +22,7 @@ export const MainHeader: React.FC = () => {
         </Link>
 
         <Flex ml='auto' alignItems='inherit'>
-          <UserAvatarGroup username='User' role='SysAdmin' />
+          <UserAvatarGroup username='Administrator' role='SysAdmin' />
         </Flex>
       </Flex>
     </PaperContainer>

@@ -123,4 +123,18 @@ export const ThemeComponents: Components<Omit<Theme, 'components'>> = {
       },
     },
   },
+
+  MuiAutocomplete: {
+    defaultProps: {
+      size: 'small',
+    },
+    styleOverrides: {
+      root: {
+        padding: 0,
+      },
+      input: {
+        padding: '2px !important',
+      },
+    },
+  },
 };
